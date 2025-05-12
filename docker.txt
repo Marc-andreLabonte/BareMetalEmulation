@@ -1,0 +1,16 @@
+
+
+# if a proxy is required:
+
+copy config.json in $HOME/.docker
+mkdir ~/.docker
+cp config.json ~/.docker/
+
+# build docker container
+docker build --rm --tag workshop2025 .
+
+# run docker container
+docker run -it --rm -p 8888:8888 workshop2025
+
+# prune container (if necessary)
+# docker system prune -a -f

@@ -1,0 +1,8 @@
+1 - Architecture change
+    - Need to update toolchain in Makefile
+    - Need to check c runtime, machine state initialization in boot.s
+
+2 - vexpress-a9 machine has different memory map
+    - Check base address in linker script (linker.ld)
+    - Check uart address in kernel.c
+    

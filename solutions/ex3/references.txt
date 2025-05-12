@@ -1,0 +1,4 @@
+https://popovicu.com/posts/bare-metal-programming-risc-v/
+https://github.com/slavaim/riscv-notes/blob/master/bbl/boot.md
+https://mth.st/blog/riscv-qemu/
+https://twilco.github.io/riscv-from-scratch/2019/04/27/riscv-from-scratch-2.html

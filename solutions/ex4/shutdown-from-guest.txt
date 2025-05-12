@@ -1,0 +1,75 @@
+what assembly instruction i would need to use on arm cortex-a7 to turn the system off using the ARM Power State Coordination Interface?
+
+To turn off the system using the **ARM Power State Coordination Interface (PSCI)** on an **ARM Cortex-A7** processor, you typically use the **SMC (Secure Monitor Call)** instruction to invoke the appropriate PSCI function.
+
+### Overview
+
+The **PSCI** interface is a standardized way to control power states (like **shutdown**, **suspend**, **CPU on/off**, etc.) in ARM systems. The **Cortex-A7** uses **SMC** (or optionally **HVC**, but SMC is more common) to make calls from the non-secure world into the secure monitor, which implements the PSCI interface.
+
+---
+
+## 🔧 Instruction to Turn Off the System (Shutdown)
+
+### ✔️ Use the `SMC` instruction to call `PSCI_SYSTEM_OFF`
+
+### 1. PSCI Function ID for System Off
+
+The function ID for `PSCI_SYSTEM_OFF` depends on the PSCI version, but for **PSCI v0.2 and above** (which is common), the ID is:
+
+```assembly
+#define PSCI_SYSTEM_OFF     0x84000008
+```
+
+This is a **32-bit SMC call** (see the `0x8` prefix).
+
+### 2. Calling `PSCI_SYSTEM_OFF` in Assembly
+
+Here’s an **example ARMv7-A** assembly snippet to issue the `PSCI_SYSTEM_OFF` call:
+
+```assembly
+mov r0, #0x84000008    ; PSCI_SYSTEM_OFF function ID
+smc #0                 ; Make the SMC call
+```
+
+After this call, the system is expected to power off, assuming the platform firmware (e.g., ARM Trusted Firmware / OP-TEE / Secure Monitor) supports PSCI and handles `PSCI_SYSTEM_OFF` correctly.
+
+---
+
+## ✅ Prerequisites
+
+1. Ensure your platform supports PSCI (usually in secure firmware like ARM Trusted Firmware).
+2. The call is made from the **non-secure world**, typically in EL1 or SVC mode (supervisor).
+3. The secure world must handle the PSCI call and manage the system shutdown.
+
+---
+
+## 🧪 Example in Context (Full Minimal Snippet)
+
+```assembly
+.global _start
+.section .text
+
+_start:
+    ldr r0, =0x84000008  ; Load PSCI_SYSTEM_OFF function ID into r0
+    smc #0               ; Secure Monitor Call to invoke PSCI
+    b .                  ; Infinite loop in case shutdown fails
+```
+
+---
+
+## 📝 Notes
+
+- If the system doesn't shut down, check that:
+  - Your platform uses ARM Trusted Firmware with PSCI support.
+  - The secure monitor is configured to allow non-secure SMC calls.
+  - Your firmware/platform has implemented and enabled `PSCI_SYSTEM_OFF`.
+
+---
+
+## 📚 References
+
+- [ARM PSCI Specification (ARM DEN0022)](https://developer.arm.com/documentation/den0022)
+- [ARM Cortex-A Series Programmer’s Guide]
+- [ARM Trusted Firmware (ATF) Source](https://github.com/ARM-software/arm-trusted-firmware)
+
+Let me know if you need the equivalent C code or integration into a bootloader like U-Boot or Linux.

@@ -1,0 +1,47 @@
+(qemu) info mtree
+address-space: I/O
+  0000000000000000-000000000000ffff (prio 0, i/o): io
+
+address-space: cpu-memory-0
+address-space: cpu-secure-memory-0
+address-space: memory
+  0000000000000000-ffffffffffffffff (prio 0, i/o): system
+    0000000000000000-0000000003ffffff (prio 0, romd): alias vexpress.flashalias @vexpress.flash0 0000000000000000-0000000003ffffff
+    0000000010000000-0000000010000fff (prio 0, i/o): arm-sysctl
+    0000000010004000-0000000010004fff (prio 0, i/o): pl041
+    0000000010005000-0000000010005fff (prio 0, i/o): pl181
+    0000000010006000-0000000010006fff (prio 0, i/o): pl050
+    0000000010007000-0000000010007fff (prio 0, i/o): pl050
+    0000000010009000-0000000010009fff (prio 0, i/o): pl011
+    000000001000a000-000000001000afff (prio 0, i/o): pl011
+    000000001000b000-000000001000bfff (prio 0, i/o): pl011
+    000000001000c000-000000001000cfff (prio 0, i/o): pl011
+    0000000010011000-0000000010011fff (prio 0, i/o): sp804
+    0000000010012000-0000000010012fff (prio 0, i/o): sp804
+    0000000010013000-00000000100131ff (prio 0, i/o): virtio-mmio
+    0000000010013200-00000000100133ff (prio 0, i/o): virtio-mmio
+    0000000010013400-00000000100135ff (prio 0, i/o): virtio-mmio
+    0000000010013600-00000000100137ff (prio 0, i/o): virtio-mmio
+    0000000010016000-0000000010016fff (prio 0, i/o): arm_sbcon_i2c
+    0000000010017000-0000000010017fff (prio 0, i/o): pl031
+    000000001001f000-000000001001ffff (prio 0, i/o): pl110
+    0000000010020000-0000000010020fff (prio 0, i/o): pl110
+    00000000100e4000-00000000100e4fff (prio 0, i/o): sp804
+    000000001e000000-000000001e001fff (prio 0, i/o): a9mp-priv-container
+      000000001e000000-000000001e0000ff (prio 0, i/o): a9-scu
+      000000001e000100-000000001e0001ff (prio 0, i/o): gic_cpu
+      000000001e000200-000000001e00021f (prio 0, i/o): a9gtimer shared
+      000000001e000600-000000001e00061f (prio 0, i/o): arm_mptimer_timer
+      000000001e000620-000000001e00063f (prio 0, i/o): arm_mptimer_timer
+      000000001e001000-000000001e001fff (prio 0, i/o): gic_dist
+    000000001e00a000-000000001e00afff (prio 0, i/o): l2x0_cc
+    0000000040000000-0000000043ffffff (prio 0, romd): vexpress.flash0
+    0000000044000000-0000000047ffffff (prio 0, romd): vexpress.flash1
+    0000000048000000-0000000049ffffff (prio 0, ram): vexpress.sram
+    000000004c000000-000000004c7fffff (prio 0, ram): vexpress.vram
+    000000004e000000-000000004e0000ff (prio 0, i/o): lan9118-mmio
+    0000000060000000-0000000067ffffff (prio 0, ram): vexpress.highmem
+
+memory-region: vexpress.flash0
+  0000000040000000-0000000043ffffff (prio 0, romd): vexpress.flash0
+

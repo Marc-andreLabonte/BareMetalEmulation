@@ -1,0 +1,7 @@
+https://stackoverflow.com/questions/76665866/bare-metal-arm-str-instruction-behavior-in-qemu
+
+check ram in memory map
+
+turn on monitor
+
+info mtree, find ram
