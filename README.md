@@ -4,14 +4,9 @@ Workshop @ NSEC 2025
 
 # Setup instructions
 
-
-## Clone with submodules
-
-git clone --recurse-submodules 
-
-If you forgot the --recurse-submodules part, you can pull them after cloning:
-
-git submodule update --init --recursive
+```bash
+git clone
+```
 
 # Installation
 
