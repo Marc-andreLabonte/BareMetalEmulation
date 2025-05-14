@@ -2,33 +2,30 @@ FROM quay.io/jupyter/base-notebook
 USER root
 # Install i386 support
 RUN apt-get update && \
-    apt-get install -y git bash gdb-multiarch make
+    apt-get install -y git bash gdb-multiarch make \
+         # we also need to fetch qemu sources for that version
+         qemu-system \
+         # install cross compilers
+         gcc-riscv64-unknown-elf binutils-riscv64-unknown-elf \
+         gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu \
+         gcc-arm-none-eabi binutils-arm-none-eabi \
+         # pwndbg needs some dependencies
+         gdbserver python3-dev python3-venv python3-setuptools libglib2.0-dev libc6-dbg curl \
+         # telnet clients to connect to qemu monitor
+         telnet ncat \
+         # Hint: tools required for exercise 4
+         file binwalk squashfs-tools \
+         # Also need device-tree-compiler to convert flattened device tree blobs in human readable form.
+         device-tree-compiler
 
-# we also need to fetch qemu sources for that version
-RUN apt-get install -y qemu-system
-
-# install cross compilers
-RUN apt-get install -y gcc-riscv64-unknown-elf binutils-riscv64-unknown-elf
-RUN apt-get install -y gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
-RUN apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+# also needed for pwndbg
+RUN dpkg --add-architecture i386 || true
+RUN apt-get install -y libc6-dbg:i386 libgcc-s1:i386 || true
 
 
 # apt might need a proxy
 #COPY 51proxy /etc/apt/apt.conf.d/51proxy
 
-# pwndgb needs some dependencies
-RUN apt-get install -y gdbserver python3-dev python3-venv python3-setuptools libglib2.0-dev libc6-dbg curl
-RUN dpkg --add-architecture i386 || true
-RUN apt-get install -y libc6-dbg:i386 libgcc-s1:i386 || true
-
-# telnet clients to connect to qemu monitor
-RUN apt-get install -y telnet ncat
-
-# Hint: tools required for exercise 4
-RUN apt-get install -y file binwalk squashfs-tools
-
-# Also need device-tree-compiler to convert flattened device tree blobs in human readable form.
-RUN apt-get install -y device-tree-compiler
 
 USER jovyan
 # Install in the default python3 environment
