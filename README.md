@@ -5,7 +5,7 @@ Workshop @ NSEC 2025
 # Setup instructions
 
 ```bash
-git clone
+git clone https://github.com/Marc-andreLabonte/BareMetalEmulation
 ```
 
 # Installation
