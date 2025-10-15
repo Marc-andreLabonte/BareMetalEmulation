@@ -1,0 +1,16 @@
+diff --git a/pwndbg/aglib/kernel/__init__.py b/pwndbg/aglib/kernel/__init__.py
+index f2299075..26ab920d 100644
+--- a/pwndbg/aglib/kernel/__init__.py
++++ b/pwndbg/aglib/kernel/__init__.py
+@@ -657,6 +657,11 @@ def paging_enabled() -> bool:
+         # https://starfivetech.com/uploads/u74_core_complex_manual_21G1.pdf
+         # page 41, satp.MODE, bits: 60,61,62,63
+         # "When satp.MODE=0x0, supervisor virtual addresses are equal to supervisor physical addresses"
++	
++        # FIXME: satp register not initialized when running qemu sifive_u
++        # As we are debugging the reset vector, we are still using physical addresses
++        if pwndbg.aglib.regs.satp is None:
++            return False
+         return int(pwndbg.aglib.regs.satp) & (BIT(60) | BIT(61) | BIT(62) | BIT(63)) != 0
+     else:
+         raise NotImplementedError()

@@ -41,10 +41,12 @@ RUN pip install --no-cache-dir 'flake8' && \
 RUN git clone --branch 2025.01.20 --single-branch -q  https://github.com/pwndbg/pwndbg
 # patch setup.sh so it does not invoke sudo to install dependencies (already installed)
 COPY --chown=${NB_UID}:${NB_GID} pwndbg/setup.sh /home/${NB_USER}/pwndbg/setup.sh
-# remove pt dependency from pyproject.toml, crash install otherwise
-#COPY --chown=${NB_UID}:${NB_GID} pwndbg/pyproject.toml /home/${NB_USER}/pwndbg/pyproject.toml
+
+# copy and apply patch to aglib so context can be shown as we step in rv64
+COPY --chown=${NB_UID}:${NB_GID} pwndbg/aglib.patch /home/${NB_USER}/pwndbg/aglib.patch
 # launch pwndbg install script
 RUN cd pwndbg && \
+  patch -p1 < aglib.patch && \
   ./setup.sh
 
 
