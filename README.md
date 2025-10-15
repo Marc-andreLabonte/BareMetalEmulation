@@ -1,6 +1,6 @@
 # Bare Metal Emulation
 
-Workshop @ NSEC 2025
+Workshop @ Hackfest 2025
 
 # Setup instructions
 
@@ -57,6 +57,7 @@ docker run -it --rm -p 8888:8888 workshop2025
 ```
 
 Download Ghidra or similar tool
-    - [https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.3.2_build/ghidra_11.3.2_PUBLIC_20250415.zip](https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.3.2_build/ghidra_11.3.2_PUBLIC_20250415.zip)
+    - [https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.4.2_build/ghidra_11.4.2_PUBLIC_20250826.zip](https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.4.2_build/ghidra_11.4.2_PUBLIC_20250826.zip)
 
+**Note** Jupyter's Terminal may not work if accessed under Firefox with privacy.resistFingerprinting setting set to true.
 
